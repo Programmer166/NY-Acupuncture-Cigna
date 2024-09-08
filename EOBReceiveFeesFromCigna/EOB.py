@@ -83,7 +83,7 @@ def download_driver(path):
 
 
 def running(path):
-    download_driver(path)
+    #download_driver(path)
     if os.path.exists(os.getcwd() + r"\EOB.csv"):
         os.remove(os.getcwd() + r"\EOB.csv")
 

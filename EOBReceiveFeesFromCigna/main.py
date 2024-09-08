@@ -40,12 +40,14 @@ if os.path.exists('EOB.csv'):
     wb_test.save('EOB.xlsx')
 
 
+if os.path.exists('EOB.xlsx'):
+    FromCsvToIncome.receive_fees()
+    print("..................")
+    print("This is NewIncome......")
+    print("..................")
+    FromCsvToIncome.receive_fees_new()
 
-FromCsvToIncome.receive_fees()
-print("..................")
-print("This is NewIncome......")
-print("..................")
-FromCsvToIncome.receive_fees_new()
+
 
 fail_fp = xlsxwriter.Workbook('faillist.xlsx')
 fail_fp_sheet = fail_fp.add_worksheet()

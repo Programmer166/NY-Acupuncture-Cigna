@@ -20,13 +20,14 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 def PARSING_EOB(filePath):
+
     
     claim_info= EOB_CLAIM.CLAIM_INFO()
     data=""
     with open(filePath, 'rt') as f:
         data = f.readlines()
     f.close()
-    
+
     for i in range(len(data)):
 
 
@@ -69,11 +70,18 @@ def PARSING_EOB(filePath):
                 
         elif data[i].startswith("Remittance Tracking Number"):
             claim_info['EOB']="'"+data[i].split(" ",data[i].count(' '))[-1].replace("\n","")
+
         elif data[i]=="PAYMENT OF\n":
             claim_info['PAID'] = data[i+2].split(' ',data[i+2].count(' '))[0].replace("$","").replace("\n","")
             
 
             EOB_CLAIM.save_csv(claim_info)
+
+        #elif data[i] == "VIEW ELIGIBILITY, BENEFITS, AND CLAIM DETAILS AND GET PRECERTIFICATION\n":
+        elif len( re.findall("VIEW ELIGIBILITY, BENEFITS, AND CLAIM DETAILS AND GET PRECERTIFICATION" ,data[i]))>0:
+            EOB_CLAIM.save_csv(claim_info)
+
+
 
             
         else:

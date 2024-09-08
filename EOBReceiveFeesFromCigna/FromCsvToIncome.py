@@ -9,10 +9,10 @@ import re
 
 
 today = date.today()
-ACCOUNTING_PATH = r"C:\Users\Evelyn\Google Drive\income"
-ACCOUNTING_PATH_NEW = r"C:\Users\Evelyn\Google Drive\income\NewIncome"
-#ACCOUNTING_PATH = r"C:\Users\demki\Desktop\AcupuntureMaterials\income"
-#ACCOUNTING_PATH_NEW = r"C:\Users\demki\Desktop\AcupuntureMaterials\income\NewIncome"
+#ACCOUNTING_PATH = r"C:\Users\Evelyn\Google Drive\income"
+#ACCOUNTING_PATH_NEW = r"C:\Users\Evelyn\Google Drive\income\NewIncome"
+ACCOUNTING_PATH = r"C:\Users\demki\Desktop\AcupuntureMaterials\income"
+ACCOUNTING_PATH_NEW = r"C:\Users\demki\Desktop\AcupuntureMaterials\income\NewIncome"
 fail_list = []
 fail_list_new = []
 
@@ -44,6 +44,7 @@ def receive_fees():
     insurance_list = openpyxl.load_workbook(fp)
     insurance_table = insurance_list.active
     temp_num = 0
+    ded_amount = ""
 
     for i in range(1, 1 + insurance_table.max_row):
 
@@ -57,9 +58,12 @@ def receive_fees():
         last_name=tempRow[3]
         first_name=tempRow[4]
         paid_amount=tempRow[7]
+        if paid_amount == None:
+            paid_amount = ""
         trace_amount_num = tempRow[13]
         charge_amount=str(tempRow[6])
         today_date=str(today.strftime("%m/%d/%Y"))
+        ded_amount = "DED " + str(tempRow[9])
         #print("new claim")
         #today_date_test = "test" + today_date
         #print(today_date_test)
@@ -117,7 +121,7 @@ def receive_fees():
 
                             if new_service_date == new_patient_date and new_charge_amount == new_patient_amount:
                                 my_sheet.cell(templ, 8).value = today_date
-                                if paid_amount != "$0.00":
+                                if paid_amount != "$0.00" and paid_amount != "":
                                     if my_sheet.cell(templ, 9).value == None or (
                                             my_sheet.cell(templ, 9).value == "" or my_sheet.cell(templ,
                                                                                                   9).value == " "):
@@ -127,6 +131,11 @@ def receive_fees():
                                         if (str(my_sheet.cell(templ, 9).value)).find(temp_paid_amount) == -1:
                                             my_sheet.cell(templ, 9).value = str(
                                                 my_sheet.cell(templ, 9).value) + " + " + paid_amount
+                                else:
+                                    if my_sheet.cell(templ, 10).value == None or (
+                                            my_sheet.cell(templ, 10).value == "" or my_sheet.cell(templ,
+                                                                                                  10).value == " "):
+                                        my_sheet.cell(templ, 10).value = ded_amount
 
                                 temp_filesearch_result = 1
                                 break
@@ -152,7 +161,7 @@ def receive_fees():
 
                             if new_service_date == new_patient_date and new_charge_amount == new_patient_amount:
                                 my_sheet.cell(templ, 8).value = today_date
-                                if paid_amount != "$0.00":
+                                if paid_amount != "$0.00" and paid_amount != "":
                                     if my_sheet.cell(templ, 9).value == None or (
                                             my_sheet.cell(templ, 9).value == "" or my_sheet.cell(templ,
                                                                                                  9).value == " "):
@@ -162,6 +171,11 @@ def receive_fees():
                                         if (str(my_sheet.cell(templ, 9).value)).find(temp_paid_amount) == -1:
                                             my_sheet.cell(templ, 9).value = str(
                                                 my_sheet.cell(templ, 9).value) + " + " + paid_amount
+                                else:
+                                    if my_sheet.cell(templ, 10).value == None or (
+                                            my_sheet.cell(templ, 10).value == "" or my_sheet.cell(templ,
+                                                                                                  10).value == " "):
+                                        my_sheet.cell(templ, 10).value = ded_amount
 
                                 temp_filesearch_result = 1
                                 break
@@ -216,9 +230,12 @@ def receive_fees_new():
         last_name=tempRow[3]
         first_name=tempRow[4]
         paid_amount=tempRow[7]
+        if paid_amount == None:
+            paid_amount = ""
         trace_amount_num = tempRow[13]
         charge_amount=str(tempRow[6])
         today_date=str(today.strftime("%m/%d/%Y"))
+        ded_amount = "DED " + str(tempRow[9])
         #print("new claim")
         #today_date_test = "test" + today_date
         #print(today_date_test)
@@ -277,7 +294,7 @@ def receive_fees_new():
 
                             if new_service_date == new_patient_date and new_charge_amount == new_patient_amount:
                                 my_sheet.cell(templ, 8).value = today_date
-                                if paid_amount != "$0.00":
+                                if paid_amount != "$0.00" and paid_amount != "":
                                     if my_sheet.cell(templ, 9).value == None or (
                                             my_sheet.cell(templ, 9).value == "" or my_sheet.cell(templ,
                                                                                                  9).value == " "):
@@ -287,6 +304,11 @@ def receive_fees_new():
                                         if (str(my_sheet.cell(templ, 9).value)).find(temp_paid_amount) == -1:
                                             my_sheet.cell(templ, 9).value = str(
                                                 my_sheet.cell(templ, 9).value) + " + " + paid_amount
+                                else:
+                                    if my_sheet.cell(templ, 10).value == None or (
+                                            my_sheet.cell(templ, 10).value == "" or my_sheet.cell(templ,
+                                                                                                  10).value == " "):
+                                        my_sheet.cell(templ, 10).value = ded_amount
 
                                 temp_filesearch_result = 1
                                 break
@@ -312,7 +334,7 @@ def receive_fees_new():
 
                             if new_service_date == new_patient_date and new_charge_amount == new_patient_amount:
                                 my_sheet.cell(templ, 8).value = today_date
-                                if paid_amount != "$0.00":
+                                if paid_amount != "$0.00" and paid_amount != "":
                                     if my_sheet.cell(templ, 9).value == None or (
                                             my_sheet.cell(templ, 9).value == "" or my_sheet.cell(templ,
                                                                                                  9).value == " "):
@@ -322,6 +344,11 @@ def receive_fees_new():
                                         if (str(my_sheet.cell(templ, 9).value)).find(temp_paid_amount) == -1:
                                             my_sheet.cell(templ, 9).value = str(
                                                 my_sheet.cell(templ, 9).value) + " + " + paid_amount
+                                else:
+                                    if my_sheet.cell(templ, 10).value == None or (
+                                            my_sheet.cell(templ, 10).value == "" or my_sheet.cell(templ,
+                                                                                                  10).value == " "):
+                                        my_sheet.cell(templ, 10).value = ded_amount
 
                                 temp_filesearch_result = 1
                                 break
